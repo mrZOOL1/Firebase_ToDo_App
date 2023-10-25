@@ -26,6 +26,7 @@ const AddButton = (props:AddButton_Props) => {
   const path = usePathname();
   const IsProject = path === '/';
   const [IsAddValid, SetIsAddValid] = useState(true);
+  const [IsShortEnough, SetIsShortEnough] = useState(true);
 
   const { toast } = useToast();
 
@@ -39,8 +40,12 @@ const AddButton = (props:AddButton_Props) => {
     if (item.length === 0) {
       SetIsAddValid(false);
     }
+    else if (item.length > 30) {
+      SetIsShortEnough(false);
+    }
     else {
       SetIsAddValid(true);
+      SetIsShortEnough(true);
       toast({title: "Great Success!", description: "Refresh the page to see the changes"});
 
       if (IsProject) {
@@ -64,7 +69,7 @@ const AddButton = (props:AddButton_Props) => {
   return (
     <Dialog>
 
-      <DialogTrigger className='noSelect button' onClick={() => SetIsAddValid(true)}>Add a New {`${IsProject ? 'Project' : 'Task'}`}</DialogTrigger>
+      <DialogTrigger className='noSelect button' onClick={() => {SetIsAddValid(true); SetIsShortEnough(true)}}>Add a New {`${IsProject ? 'Project' : 'Task'}`}</DialogTrigger>
 
       <DialogContent className='noSelect border border-white'>
 
@@ -83,6 +88,7 @@ const AddButton = (props:AddButton_Props) => {
           </div>
 
           <Label className='ml-3 text-red-600' htmlFor="add" style={{display: IsAddValid ? 'none' : ''}}>Required Field</Label>
+          <Label className='ml-3 text-red-600' htmlFor="add" style={{display: IsShortEnough ? 'none' : ''}}>Too Long</Label>
 
         </form>
 

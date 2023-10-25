@@ -30,6 +30,7 @@ const EditButton = (props: EditButton_Props) => {
     const path = usePathname();
     const IsProject = path === '/';
     const [IsEditValid, SetIsEditValid] = useState(true);
+    const [IsShortEnough, SetIsShortEnough] = useState(true);
 
     const { toast } = useToast();
 
@@ -39,8 +40,13 @@ const EditButton = (props: EditButton_Props) => {
         const editinput = document.querySelector(`#${props.id}`) as HTMLInputElement;
         const item = editinput.value;
 
+        console.log(item.length);
+
         if (item.length === 0) {
           SetIsEditValid(false);
+        }
+        else if (item.length > 30) {
+          SetIsShortEnough(false);
         }
 
         else {
@@ -60,7 +66,7 @@ const EditButton = (props: EditButton_Props) => {
   return (
     <Dialog>
 
-        <DialogTrigger className='noSelect ghostButton' onClick={() => SetIsEditValid(true)}><Pencil className='blackwhite'/></DialogTrigger>
+        <DialogTrigger className='noSelect ghostButton' onClick={() => {SetIsEditValid(true); SetIsShortEnough(true)}}><Pencil className='blackwhite'/></DialogTrigger>
 
         <DialogContent className='noSelect border border-white'>
 
@@ -77,6 +83,7 @@ const EditButton = (props: EditButton_Props) => {
                 </div>
 
                 <Label className='ml-3 text-red-600' htmlFor="edit" style={{display: IsEditValid ? 'none' : ''}}>Required Field</Label>
+                <Label className='ml-3 text-red-600' htmlFor="add" style={{display: IsShortEnough ? 'none' : ''}}>Too Long</Label>
 
             </form>
 

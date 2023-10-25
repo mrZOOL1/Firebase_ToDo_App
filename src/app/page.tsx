@@ -11,8 +11,8 @@ export default async function Home() {
       
       <ThemeSwitcher/>
 
-      <h1 className="text-5xl font-semibold noSelect">Current Projects</h1>
-      <p className="mt-2">Select a project to add tasks</p>
+      <h1 className="text-5xl font-semibold noSelect text-center">Current Projects</h1>
+      <p className="mt-2 text-center">Select a project to add tasks</p>
       
       <ScrollArea className={'border-white mt-6 mb-6 h-1/2 w-[min(90%,800px)] rounded-md border myshadow justify-center items-center'}>
 
